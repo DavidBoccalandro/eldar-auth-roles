@@ -1,6 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -22,15 +28,39 @@ import { PasswordModule } from 'primeng/password';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  constructor(private router: Router) {}
+  loginForm: FormGroup;
 
-  loginForm: FormGroup = new FormGroup({
-    username: new FormControl(''),
-    password: new FormControl(''),
-  });
+  constructor(private router: Router, private fb: FormBuilder) {
+    this.loginForm = this.fb.group({
+      username: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+    });
+  }
 
   onSubmit() {
-    console.log(this.loginForm.value);
-    this.router.navigate(['/posts']);
+    if (this.loginForm.valid) {
+      console.log(this.loginForm.value);
+      this.router.navigate(['/posts']);
+    } else {
+      console.log(this.loginForm.errors);
+    }
+  }
+
+  getErrorMessage(control: AbstractControl): string {
+    if (control.hasError('required')) {
+      return 'Este campo es requerido';
+    } else if (control.hasError('minlength')) {
+      return `Este campo debe tener al menos ${control.errors?.['minlength']?.requiredLength} caracteres`;
+    } else {
+      return 'Error desconocido';
+    }
+  }
+
+  get username() {
+    return this.loginForm.get('username');
+  }
+
+  get password() {
+    return this.loginForm.get('password');
   }
 }

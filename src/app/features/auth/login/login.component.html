@@ -13,6 +13,16 @@
             pInputText
             formControlName="username"
           />
+          <small id="username-help">
+            Ingresa tu usuario. Mínimo 6 caracteres.
+          </small>
+          @if(username?.invalid && (username?.dirty || username?.touched)) {
+            <small
+              severity="error"
+              text="El nombre de usuario es requerido y debe tener al menos 6 caracteres"
+            >
+            </small>
+          }
         </div>
         <div class="form-field">
           <label for="password">Contraseña</label>
@@ -21,8 +31,23 @@
             formControlName="password"
             [feedback]="false"
           ></p-password>
+          <small id="username-help">
+            Ingresa tu contraseña. Mínimo 8 caracteres.
+          </small>
+          @if(password?.invalid && (password?.dirty || password?.touched)) {
+            <small
+              severity="error"
+              text="La contraseña es requerida y debe tener al menos 8 caracteres"
+            >
+            </small>
+          }
         </div>
-        <p-button label="Iniciar sesión" (onClick)="onSubmit()"></p-button>
+        <p-button
+          label="Iniciar sesión"
+          (onClick)="onSubmit()"
+          [disabled]="loginForm.invalid"
+        >
+        </p-button>
       </div>
     </form>
   </p-card>
