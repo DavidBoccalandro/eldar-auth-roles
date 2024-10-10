@@ -1,0 +1,29 @@
+<div class="login-container">
+  <p-card
+    header="Iniciar sesión"
+    [style]="{ width: '25rem', 'margin-bottom': '2em' }"
+  >
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="card-content">
+      <div class="card-content">
+        <div class="form-field">
+          <label for="username">Nombre de usuario</label>
+          <input
+            id="username"
+            type="text"
+            pInputText
+            formControlName="username"
+          />
+        </div>
+        <div class="form-field">
+          <label for="password">Contraseña</label>
+          <p-password
+            id="password"
+            formControlName="password"
+            [feedback]="false"
+          ></p-password>
+        </div>
+        <p-button label="Iniciar sesión" (onClick)="onSubmit()"></p-button>
+      </div>
+    </form>
+  </p-card>
+</div>
