@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
@@ -21,6 +22,8 @@ import { PasswordModule } from 'primeng/password';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
+  constructor(private router: Router) {}
+
   loginForm: FormGroup = new FormGroup({
     username: new FormControl(''),
     password: new FormControl(''),
@@ -28,5 +31,6 @@ export class LoginComponent {
 
   onSubmit() {
     console.log(this.loginForm.value);
+    this.router.navigate(['/posts']);
   }
 }

@@ -1,0 +1,60 @@
+@import "../../../../styles/index";
+
+.posts-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $spacing-large;
+  background-color: $light-color;
+  max-width: 800px;
+  margin: 0 auto;
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: $spacing-large;
+    color: $primary-color;
+  }
+}
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: $spacing-large;
+}
+
+::ng-deep .post-card {
+  .p-card-body {
+    padding: $spacing-large;
+
+    .post-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: $spacing-medium;
+    }
+
+    h4 {
+      font-size: 1.2rem;
+      margin-bottom: $spacing-small;
+      color: $dark-color;
+    }
+
+    p {
+      color: $secondary-color;
+      line-height: 1.5;
+    }
+
+    .post-actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: $spacing-medium;
+
+      .p-button.p-button-text {
+        color: $secondary-color;
+
+        &:hover {
+          background-color: rgba($primary-color, 0.1);
+        }
+      }
+    }
+  }
+}
