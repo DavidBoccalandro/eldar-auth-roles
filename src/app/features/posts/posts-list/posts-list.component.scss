@@ -58,3 +58,13 @@
     }
   }
 }
+
+.add-post-button {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: $spacing-large;
+
+  .p-button {
+    margin-left: auto;
+  }
+}
