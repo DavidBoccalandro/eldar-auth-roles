@@ -27,7 +27,7 @@ export class AuthEffects {
               role: response.role,
             };
             const token = response.token;
-            return LoginActions.loginSuccessful({ user, token });
+            return LoginActions.loginSuccess({ user, token });
           }),
           catchError((error) =>
             of(LoginActions.loginFailed({ error: error.message }))
@@ -40,7 +40,7 @@ export class AuthEffects {
   $loginSuccess = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(LoginActions.loginSuccessful),
+        ofType(LoginActions.loginSuccess),
         tap(({ token }) => {
           this.authService.setToken(token);
           this.router.navigate(['/posts']);

@@ -1,6 +1,6 @@
 <div class="posts-container">
   <h2>Publicaciones recientes</h2>
-  <div class="posts-grid">
+  <div class="posts-grid" *ngIf="posts$ | async as posts">
     <p-card *ngFor="let post of posts" styleClass="post-card">
       <ng-template pTemplate="header">
         <div class="post-header">

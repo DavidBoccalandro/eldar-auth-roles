@@ -1,9 +1,16 @@
-import { Post } from '@app/shared/models/post.model';
-import { createReducer } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
+import { PostsActions } from './actions/posts.actions';
 import { PostsState } from './posts.store.model';
 
 const initialState: PostsState = {
-  postsList: [] as Post[],
+  postsList: [],
 };
 
-export const postsReducer = createReducer(initialState);
+export const postsReducer = createReducer(
+  initialState,
+
+  on(PostsActions.loadPostsSuccess, (state, { posts }) => ({
+    ...state,
+    postsList: posts,
+  }))
+);

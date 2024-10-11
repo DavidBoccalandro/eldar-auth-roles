@@ -7,7 +7,7 @@ export const LoginActions = createActionGroup({
     'Load Auth State': props<{ token: string | null }>(),
 
     'Login Init': props<{ username: string; password: string }>(),
-    'Login Successful': props<{ user: User; token: string }>(),
+    'Login Success': props<{ user: User; token: string }>(),
     'Login Failed': props<{ error: string }>(),
   },
 });
