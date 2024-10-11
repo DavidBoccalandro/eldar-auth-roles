@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import { User, UserRole } from '../store/auth.model';
+import { UserRole } from '../store/auth.model';
 
 @Injectable({
   providedIn: 'root',
@@ -18,5 +18,21 @@ export class AuthService {
     };
 
     return of(response).pipe(delay(1000));
+  }
+
+  setToken(token: string): void {
+    localStorage.setItem('auth_token', token);
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('auth_token');
+  }
+
+  removeToken(): void {
+    localStorage.removeItem('auth_token');
+  }
+
+  isAuthenticated(): boolean {
+    return !!this.getToken();
   }
 }

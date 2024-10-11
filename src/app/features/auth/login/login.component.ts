@@ -41,7 +41,7 @@ export class LoginComponent {
   onSubmit() {
     if (this.loginForm.valid) {
       const { username, password } = this.loginForm.value;
-      this.store.dispatch(LoginActions.login({ username, password }));
+      this.store.dispatch(LoginActions.loginInit({ username, password }));
     }
   }
 

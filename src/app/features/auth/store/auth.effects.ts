@@ -9,9 +9,15 @@ import { User } from './auth.model';
 
 @Injectable()
 export class AuthEffects {
-  login$ = createEffect(() =>
+  loadAuthState$ = createEffect(() =>
+    of(this.authService.getToken()).pipe(
+      map((token) => LoginActions.loadAuthState({ token }))
+    )
+  );
+
+  loginInit$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(LoginActions.login),
+      ofType(LoginActions.loginInit),
       switchMap(({ username, password }) => {
         return this.authService.login(username, password).pipe(
           map((response) => {
@@ -35,7 +41,10 @@ export class AuthEffects {
     () =>
       this.actions$.pipe(
         ofType(LoginActions.loginSuccessful),
-        tap(() => this.router.navigate(['/posts']))
+        tap(({ token }) => {
+          this.authService.setToken(token);
+          this.router.navigate(['/posts']);
+        })
       ),
     { dispatch: false }
   );

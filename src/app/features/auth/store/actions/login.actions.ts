@@ -4,7 +4,9 @@ import { User } from '../auth.model';
 export const LoginActions = createActionGroup({
   source: 'Auth',
   events: {
-    'Login': props<{ username: string; password: string }>(),
+    'Load Auth State': props<{ token: string | null }>(),
+
+    'Login Init': props<{ username: string; password: string }>(),
     'Login Successful': props<{ user: User; token: string }>(),
     'Login Failed': props<{ error: string }>(),
   },
