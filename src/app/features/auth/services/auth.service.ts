@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { User } from '@app/shared/models/user.model';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { UserRole } from '../../../shared/models/user.model';
@@ -21,15 +22,25 @@ export class AuthService {
   }
 
   setToken(token: string): void {
-    localStorage.setItem('auth_token', token);
+    localStorage.setItem('token', token);
   }
 
   getToken(): string | null {
-    return localStorage.getItem('auth_token');
+    return localStorage.getItem('token');
   }
 
-  removeToken(): void {
-    localStorage.removeItem('auth_token');
+  setUser(user: User): void {
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  getUser(): User | null {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
+  }
+
+  clearAuth(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
   }
 
   isAuthenticated(): boolean {

@@ -11,7 +11,13 @@ import { LoginActions } from './actions/login.actions';
 export class AuthEffects {
   loadAuthState$ = createEffect(() =>
     of(this.authService.getToken()).pipe(
-      map((token) => LoginActions.loadAuthState({ token }))
+      map((token) => {
+        const user = this.authService.getUser();
+        if (token) {
+          return LoginActions.loadAuthState({ token, user });
+        }
+        return LoginActions.loadAuthState({ token: null, user: null });
+      })
     )
   );
 
@@ -27,6 +33,7 @@ export class AuthEffects {
               role: response.role,
             };
             const token = response.token;
+            this.authService.setUser(user);
             return LoginActions.loginSuccess({ user, token });
           }),
           catchError((error) =>

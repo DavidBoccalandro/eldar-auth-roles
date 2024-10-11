@@ -11,6 +11,11 @@ const initialState: AuthState = {
 
 export const authReducer = createReducer(
   initialState,
+
+  on(LoginActions.loadAuthState, (state, { token, user }) => {
+    return { ...state, token, user, isLoading: false };
+  }),
+
   on(LoginActions.loginInit, (state) => ({ ...state, isLoading: true })),
 
   on(LoginActions.loginSuccess, (state, { user, token }) => ({
@@ -24,12 +29,6 @@ export const authReducer = createReducer(
   on(LoginActions.loginFailed, (state, { error }) => ({
     ...state,
     error,
-    isLoading: false,
-  })),
-
-  on(LoginActions.loadAuthState, (state, { token }) => ({
-    ...state,
-    token,
     isLoading: false,
   }))
 );
