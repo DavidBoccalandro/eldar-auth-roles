@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { PostService } from '@app/core/services/post.service';
+import { PostsService } from '@app/features/posts/services/posts.service';
 import { Post } from '@app/shared/models/post';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -15,14 +15,14 @@ import { CardModule } from 'primeng/card';
 export class PostsListComponent implements OnInit {
   posts: Post[] = [];
 
-  constructor(private postService: PostService) {}
+  constructor(private postsService: PostsService) {}
 
   ngOnInit() {
     this.loadPosts();
   }
 
   loadPosts() {
-    this.postService.getPosts().subscribe({
+    this.postsService.getPosts().subscribe({
       next: (posts) => {
         this.posts = posts;
       },

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class PostService {
+export class PostsService {
   private baseUrl = 'https://jsonplaceholder.typicode.com/posts';
 
   constructor(private http: HttpClient) {}
