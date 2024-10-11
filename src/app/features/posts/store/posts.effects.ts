@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { ModalService } from '@app/shared/services/modal.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { MessageService } from 'primeng/api';
 import { of } from 'rxjs';
@@ -13,7 +14,8 @@ export class PostsEffects {
     private actions$: Actions,
     private postsService: PostsService,
     private messageService: MessageService,
-    private router: Router
+    private router: Router,
+    private modalService: ModalService
   ) {}
 
   loadPosts$ = createEffect(() =>
@@ -59,6 +61,23 @@ export class PostsEffects {
             summary: 'Publicación creada con éxito',
             detail: 'La publicación se ha creado correctamente',
           });
+        })
+      ),
+    { dispatch: false }
+  );
+
+  openDeleteConfirmationModal$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(PostsActions.openDeleteModal),
+        tap(({ post }) => {
+          this.modalService.openModal(
+            'Confirmar eliminación',
+            `¿Estás seguro de que deseas eliminar el post: ${post.title}?`,
+            () => {
+              console.log('Post eliminado:', post);
+            }
+          );
         })
       ),
     { dispatch: false }

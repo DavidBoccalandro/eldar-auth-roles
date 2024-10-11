@@ -5,6 +5,7 @@ import { selectUserRole } from '@app/features/auth/store/auth.selectors';
 import { ModalComponent } from '@app/shared/components/modal/modal.component';
 import { Post } from '@app/shared/models/post.model';
 import { UserRole } from '@app/shared/models/user.model';
+import { ModalService } from '@app/shared/services/modal.service';
 import { Store } from '@ngrx/store';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -33,7 +34,11 @@ export class PostsListComponent implements OnInit {
   userRole$!: Observable<UserRole | undefined>;
   UserRoleEnum = UserRole;
 
-  constructor(private store: Store, private router: Router) {}
+  constructor(
+    private store: Store,
+    private router: Router,
+    private modalService: ModalService
+  ) {}
 
   ngOnInit() {
     this.posts$ = this.store.select(selectAllPosts);
@@ -52,7 +57,7 @@ export class PostsListComponent implements OnInit {
   }
 
   deletePost(post: Post) {
-    console.log(post);
+    this.store.dispatch(PostsActions.openDeleteModal({ post }));
   }
 
   createPost() {
