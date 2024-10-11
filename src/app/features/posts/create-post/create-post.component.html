@@ -1,10 +1,10 @@
 <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
-  <div class="p-fluid">
-    <div class="p-field">
+  <div class="form-container">
+    <div class="form-field">
       <label for="title">Título</label>
       <input type="text" pInputText formControlName="title" />
     </div>
-    <div class="p-field">
+    <div class="form-field">
       <label for="body">Cuerpo</label>
       <textarea
         [rows]="5"
@@ -14,10 +14,19 @@
         formControlName="body"
       ></textarea>
     </div>
-    <p-button
-      label="Crear Publicación"
-      type="submit"
-      [disabled]="postForm.invalid"
-    ></p-button>
+    <div class="form-actions">
+      <p-button
+        label="Volver"
+        icon="pi pi-arrow-left"
+        (click)="goBack()"
+        styleClass="p-mr-2"
+      ></p-button>
+      <p-button
+        label="Crear Publicación"
+        type="submit"
+        [disabled]="postForm.invalid"
+        icon="pi pi-save"
+      ></p-button>
+    </div>
   </div>
 </form>

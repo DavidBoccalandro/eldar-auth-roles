@@ -10,7 +10,7 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { PostsActions } from '../store/actions/posts.actions';
 import { selectAllPosts } from '../store/posts.selectors';
 
@@ -36,9 +36,14 @@ export class PostsListComponent implements OnInit {
   constructor(private store: Store, private router: Router) {}
 
   ngOnInit() {
-    this.store.dispatch(PostsActions.loadPosts());
-
     this.posts$ = this.store.select(selectAllPosts);
+
+    this.posts$.pipe(take(1)).subscribe((posts) => {
+      if (!posts || posts.length === 0) {
+        this.store.dispatch(PostsActions.loadPosts());
+      }
+    });
+
     this.userRole$ = this.store.select(selectUserRole);
   }
 

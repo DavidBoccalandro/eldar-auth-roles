@@ -9,6 +9,12 @@ import { LoginActions } from './actions/login.actions';
 
 @Injectable()
 export class AuthEffects {
+  constructor(
+    private actions$: Actions,
+    private router: Router,
+    private authService: AuthService
+  ) {}
+
   loadAuthState$ = createEffect(() =>
     of(this.authService.getToken()).pipe(
       map((token) => {
@@ -55,10 +61,4 @@ export class AuthEffects {
       ),
     { dispatch: false }
   );
-
-  constructor(
-    private actions$: Actions,
-    private router: Router,
-    private authService: AuthService
-  ) {}
 }

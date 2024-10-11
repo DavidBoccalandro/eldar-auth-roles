@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideEffects } from '@ngrx/effects';
 import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { MessageService } from 'primeng/api';
 import { routes } from './app.routes';
 import { AuthEffects } from './features/auth/store/auth.effects';
 import { authReducer } from './features/auth/store/auth.reducer';
@@ -24,5 +25,6 @@ export const appConfig: ApplicationConfig = {
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     provideHttpClient(),
     importProvidersFrom([BrowserAnimationsModule]),
+    MessageService,
   ],
 };

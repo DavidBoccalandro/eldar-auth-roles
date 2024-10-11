@@ -1,0 +1,17 @@
+@import "../../../../styles/index";
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  padding: $spacing-large;
+}
+
+.form-field {
+  margin-bottom: $spacing-large;
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}

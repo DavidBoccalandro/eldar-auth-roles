@@ -6,6 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -28,7 +29,11 @@ import { PostsActions } from '../store/actions/posts.actions';
 export class CreatePostComponent {
   postForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private store: Store) {
+  constructor(
+    private fb: FormBuilder,
+    private store: Store,
+    private router: Router
+  ) {
     this.postForm = this.fb.group({
       title: ['', [Validators.required]],
       body: ['', [Validators.required]],
@@ -45,5 +50,9 @@ export class CreatePostComponent {
       };
       this.store.dispatch(PostsActions.createPost({ post: newPost }));
     }
+  }
+
+  goBack() {
+    this.router.navigate(['/posts']);
   }
 }
