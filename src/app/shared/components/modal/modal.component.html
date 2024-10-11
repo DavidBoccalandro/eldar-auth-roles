@@ -1,0 +1,24 @@
+<p-dialog
+  [header]="title"
+  [(visible)]="isVisible"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  class="modal-container"
+>
+  <div class="modal-content">
+    <ng-content></ng-content>
+  </div>
+
+  <div class="modal-footer">
+    <p-button
+      label="Cancelar"
+      (click)="closeModal()"
+      styleClass="p-button-secondary"
+    ></p-button>
+    <p-button
+      label="Guardar"
+      (click)="saveModal()"
+      styleClass="p-button-primary"
+    ></p-button>
+  </div>
+</p-dialog>

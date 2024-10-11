@@ -1,0 +1,11 @@
+@import "../../../../styles/index";
+
+.modal-content {
+  padding-bottom: $spacing-large;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: $spacing-small;
+}
