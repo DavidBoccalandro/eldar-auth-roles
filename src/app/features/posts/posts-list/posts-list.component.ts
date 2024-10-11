@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { selectUserRole } from '@app/features/auth/store/auth.selectors';
 import { ModalComponent } from '@app/shared/components/modal/modal.component';
 import { Post } from '@app/shared/models/post.model';
@@ -32,7 +33,7 @@ export class PostsListComponent implements OnInit {
   userRole$!: Observable<UserRole | undefined>;
   UserRoleEnum = UserRole;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private router: Router) {}
 
   ngOnInit() {
     this.store.dispatch(PostsActions.loadPosts());
@@ -50,6 +51,6 @@ export class PostsListComponent implements OnInit {
   }
 
   createPost() {
-    console.log('create');
+    this.router.navigate(['/posts/create']);
   }
 }

@@ -1,0 +1,23 @@
+<form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+  <div class="p-fluid">
+    <div class="p-field">
+      <label for="title">Título</label>
+      <input type="text" pInputText formControlName="title" />
+    </div>
+    <div class="p-field">
+      <label for="body">Cuerpo</label>
+      <textarea
+        [rows]="5"
+        [cols]="30"
+        pInputTextarea
+        [autoResize]="false"
+        formControlName="body"
+      ></textarea>
+    </div>
+    <p-button
+      label="Crear Publicación"
+      type="submit"
+      [disabled]="postForm.invalid"
+    ></p-button>
+  </div>
+</form>

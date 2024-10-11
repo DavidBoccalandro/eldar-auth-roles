@@ -24,4 +24,20 @@ export class PostsEffects {
       })
     )
   );
+
+  createPost$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(PostsActions.createPost),
+      switchMap(({ post }) => {
+        return this.postsService.createPost(post).pipe(
+          map((createdPost) => {
+            return PostsActions.createPostSuccess({ post: createdPost });
+          }),
+          catchError((error) => {
+            return of(PostsActions.createPostFailed({ error: error.message }));
+          })
+        );
+      })
+    )
+  );
 }

@@ -12,5 +12,10 @@ export const postsReducer = createReducer(
   on(PostsActions.loadPostsSuccess, (state, { posts }) => ({
     ...state,
     postsList: posts,
+  })),
+
+  on(PostsActions.createPostSuccess, (state, { post }) => ({
+    ...state,
+    postsList: [post, ...state.postsList],
   }))
 );
