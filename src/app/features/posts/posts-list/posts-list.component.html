@@ -14,11 +14,27 @@
       <ng-template pTemplate="footer">
         <div class="post-actions">
           <p-button icon="pi pi-heart" styleClass="p-button-text"></p-button>
-          <p-button icon="pi pi-comment" styleClass="p-button-text"></p-button>
-          <p-button
-            icon="pi pi-share-alt"
-            styleClass="p-button-text"
-          ></p-button>
+
+          <ng-container *ngIf="userRole$ | async as userRole">
+            <p-button
+              *ngIf="userRole === 'admin'"
+              icon="pi pi-pencil"
+              styleClass="p-button-text"
+              (click)="editPost(post)"
+            ></p-button>
+            <p-button
+              *ngIf="userRole === 'admin'"
+              icon="pi pi-trash"
+              styleClass="p-button-text"
+              (click)="deletePost(post)"
+            ></p-button>
+            <p-button
+              *ngIf="userRole === 'admin'"
+              icon="pi pi-plus"
+              styleClass="p-button-text"
+              (click)="createPost()"
+            ></p-button>
+          </ng-container>
         </div>
       </ng-template>
     </p-card>
