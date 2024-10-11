@@ -1,70 +1,51 @@
 @import "../../../../styles/index";
 
 .posts-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  margin: 0 auto;
   padding: $spacing-large;
   background-color: $light-color;
-  max-width: 800px;
-  margin: 0 auto;
 
-  h2 {
-    font-size: 2rem;
-    margin-bottom: $spacing-large;
-    color: $primary-color;
+  .posts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-medium;
+
+    .add-post-button {
+      margin-left: auto;
+    }
   }
-}
 
-.posts-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: $spacing-large;
-}
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: $spacing-large;
+    grid-auto-rows: 1fr;
 
-::ng-deep .post-card {
-  .p-card-body {
-    padding: $spacing-large;
+    ::ng-deep .p-card {
+      height: 100%;
+      padding: $spacing-medium;
 
-    .post-header {
-      display: flex;
-      align-items: center;
-      margin-bottom: $spacing-medium;
-    }
+      .post-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
 
-    h4 {
-      font-size: 1.2rem;
-      margin-bottom: $spacing-small;
-      color: $dark-color;
-    }
+      .p-card-body {
+        padding: 0;
+      }
 
-    p {
-      color: $secondary-color;
-      line-height: 1.5;
-    }
+      .post-footer {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: $spacing-small;
 
-    .post-actions {
-      display: flex;
-      justify-content: space-between;
-      margin-top: $spacing-medium;
-
-      .p-button.p-button-text {
-        color: $secondary-color;
-
-        &:hover {
-          background-color: rgba($primary-color, 0.1);
+        .post-actions {
+          display: flex;
+          gap: $spacing-small;
         }
       }
     }
-  }
-}
-
-.add-post-button {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: $spacing-large;
-
-  .p-button {
-    margin-left: auto;
   }
 }
