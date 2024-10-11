@@ -1,7 +1,48 @@
 import { Injectable } from '@angular/core';
-import { Actions } from '@ngrx/effects';
+import { Router } from '@angular/router';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { of } from 'rxjs';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { AuthService } from '../services/auth.service';
+import { LoginActions } from './actions/login.actions';
+import { User } from './auth.model';
 
 @Injectable()
 export class AuthEffects {
-  constructor(private actions$: Actions) {}
+  login$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(LoginActions.login),
+      switchMap(({ username, password }) => {
+        return this.authService.login(username, password).pipe(
+          map((response) => {
+            const user: User = {
+              id: response.userId,
+              username: response.username,
+              role: response.role,
+            };
+            const token = response.token;
+            return LoginActions.loginSuccessful({ user, token });
+          }),
+          catchError((error) =>
+            of(LoginActions.loginFailed({ error: error.message }))
+          )
+        );
+      })
+    )
+  );
+
+  $loginSuccess = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(LoginActions.loginSuccessful),
+        tap(() => this.router.navigate(['/posts']))
+      ),
+    { dispatch: false }
+  );
+
+  constructor(
+    private actions$: Actions,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 }

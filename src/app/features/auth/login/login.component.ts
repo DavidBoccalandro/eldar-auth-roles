@@ -7,11 +7,12 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
+import { LoginActions } from '../store/actions/login.actions';
 
 @Component({
   selector: 'app-login',
@@ -30,19 +31,17 @@ import { PasswordModule } from 'primeng/password';
 export class LoginComponent {
   loginForm: FormGroup;
 
-  constructor(private router: Router, private fb: FormBuilder) {
+  constructor(private store: Store, private fb: FormBuilder) {
     this.loginForm = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(6)]],
+      username: ['', [Validators.required, Validators.minLength(5)]],
       password: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
   onSubmit() {
     if (this.loginForm.valid) {
-      console.log(this.loginForm.value);
-      this.router.navigate(['/posts']);
-    } else {
-      console.log(this.loginForm.errors);
+      const { username, password } = this.loginForm.value;
+      this.store.dispatch(LoginActions.login({ username, password }));
     }
   }
 
