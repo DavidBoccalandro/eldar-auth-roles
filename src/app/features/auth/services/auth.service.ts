@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import { UserRole } from '../store/auth.model';
+import { UserRole } from '../../../shared/models/user.model';
 
 @Injectable({
   providedIn: 'root',

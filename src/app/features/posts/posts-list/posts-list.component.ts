@@ -1,13 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { selectUserRole } from '@app/features/auth/store/auth.selectors';
 import { PostsService } from '@app/features/posts/services/posts.service';
-import { Post } from '@app/shared/models/post';
+import { Post } from '@app/shared/models/post.model';
+import { UserRole } from '@app/shared/models/user.model';
 import { Store } from '@ngrx/store';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { Observable } from 'rxjs';
-import { UserRole } from '../../auth/store/auth.model';
-import { selectUserRole } from '../../auth/store/auth.selectors';
 
 @Component({
   selector: 'app-posts-list',

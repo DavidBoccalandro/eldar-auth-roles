@@ -1,5 +1,5 @@
+import { User } from '@app/shared/models/user.model';
 import { createActionGroup, props } from '@ngrx/store';
-import { User } from '../auth.model';
 
 export const LoginActions = createActionGroup({
   source: 'Auth',
