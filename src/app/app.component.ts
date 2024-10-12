@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
+import { HeaderComponent } from './shared/components/header/header.component';
 import { ModalComponent } from './shared/components/modal/modal.component';
 
 @Component({
@@ -11,13 +11,11 @@ import { ModalComponent } from './shared/components/modal/modal.component';
   imports: [
     RouterOutlet,
     CommonModule,
-    ButtonModule,
     ToastModule,
+    HeaderComponent,
     ModalComponent,
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-  title = 'eldar-auth-roles';
-}
+export class AppComponent {}

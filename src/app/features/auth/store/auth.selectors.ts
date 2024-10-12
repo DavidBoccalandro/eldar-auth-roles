@@ -18,6 +18,11 @@ export const selectUser = createSelector(
   (state: AuthState) => state.user
 );
 
+export const selectUserName = createSelector(
+  selectAuthState,
+  (state: AuthState) => state.user?.username
+);
+
 export const selectIsLoading = createSelector(
   selectAuthState,
   (state: AuthState) => state.isLoading

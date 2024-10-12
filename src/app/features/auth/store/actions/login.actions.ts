@@ -1,5 +1,5 @@
 import { User } from '@app/shared/models/user.model';
-import { createActionGroup, props } from '@ngrx/store';
+import { createActionGroup, emptyProps, props } from '@ngrx/store';
 
 export const LoginActions = createActionGroup({
   source: 'Auth',
@@ -10,5 +10,7 @@ export const LoginActions = createActionGroup({
     'Login Init': props<{ username: string; password: string }>(),
     'Login Success': props<{ user: User; token: string }>(),
     'Login Failed': props<{ error: string }>(),
+
+    'Logout': emptyProps(),
   },
 });

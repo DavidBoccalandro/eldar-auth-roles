@@ -64,4 +64,16 @@ export class AuthEffects {
       ),
     { dispatch: false }
   );
+
+  logout$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(LoginActions.logout),
+        tap(() => {
+          this.authService.logout();
+          this.router.navigate(['/login']);
+        })
+      ),
+    { dispatch: false }
+  );
 }

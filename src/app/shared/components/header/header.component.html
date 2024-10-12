@@ -1,0 +1,28 @@
+<ng-container *ngIf="isUserAuthenticated$ | async">
+  <header class="header">
+    <img
+      class="header-logo"
+      src="assets/logo.png"
+      alt="Logo de la empresa Elder"
+    />
+    <div class="user-menu">
+      <ng-container *ngIf="user$ | async as user">
+        <p-avatar
+          [label]="user.charAt(0).toUpperCase()"
+          styleClass="mr-2"
+          shape="circle"
+        ></p-avatar>
+        <div class="menu-wrapper">
+          <p-menu #menu [model]="userMenuItems" [popup]="true"></p-menu>
+          <p-button
+            [label]="user"
+            icon="pi pi-angle-down"
+            (onClick)="menu.toggle($event)"
+            [outlined]="true"
+            severity="secondary"
+          ></p-button>
+        </div>
+      </ng-container>
+    </div>
+  </header>
+</ng-container>

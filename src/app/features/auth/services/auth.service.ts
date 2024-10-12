@@ -21,6 +21,10 @@ export class AuthService {
     return of(response).pipe(delay(1000));
   }
 
+  logout(): void {
+    this.clearAuth();
+  }
+
   setToken(token: string): void {
     localStorage.setItem('token', token);
   }

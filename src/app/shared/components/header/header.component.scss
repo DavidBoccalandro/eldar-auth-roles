@@ -1,0 +1,50 @@
+@import '../../../../styles/index';
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-small $spacing-large;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
+  z-index: 1000;
+
+  .header-logo {
+    width: 100px;
+  }
+
+  .user-menu {
+    display: flex;
+    align-items: center;
+    gap: $spacing-medium;
+
+    ::ng-deep {
+      .p-avatar {
+        background-color: var(--primary-color);
+        color: var(--primary-color-text);
+      }
+
+      .p-menu-overlay {
+        top: 60px !important;
+        width: fit-content;
+
+        .p-menuitem-text {
+          margin-right: $spacing-small;
+        }
+
+        .p-menuitem-badge {
+          margin-left: auto;
+          background-color: var(--indigo-500);
+        }
+      }
+    }
+
+    .menu-wrapper {
+      display: flex;
+    }
+  }
+}
