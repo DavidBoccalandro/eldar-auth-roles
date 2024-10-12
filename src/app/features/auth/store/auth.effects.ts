@@ -43,7 +43,10 @@ export class AuthEffects {
             return LoginActions.loginSuccess({ user, token });
           }),
           catchError((error) =>
-            of(LoginActions.loginFailed({ error: error.message }))
+            of(
+              LoginActions.loginFailed({ error: error.message }),
+              LoginActions.setLoading({ isLoading: false })
+            )
           )
         );
       })

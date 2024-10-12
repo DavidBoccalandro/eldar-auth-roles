@@ -17,3 +17,13 @@ export const selectUser = createSelector(
   selectAuthState,
   (state: AuthState) => state.user
 );
+
+export const selectIsLoading = createSelector(
+  selectAuthState,
+  (state: AuthState) => state.isLoading
+);
+
+export const selectLoginError = createSelector(
+  selectAuthState,
+  (state: AuthState) => state.error
+);

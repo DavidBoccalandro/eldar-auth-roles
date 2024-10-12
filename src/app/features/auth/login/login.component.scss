@@ -1,38 +1,109 @@
 @import "../../../../styles/index";
 
-.login-container {
+.login-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  width: 100%;
-  background-color: $light-color;
+  background-color: var(--surface-ground);
+  padding: $spacing-medium;
 
-  ::ng-deep .p-card {
-    .p-card-body {
-      padding: $spacing-large;
+  ::ng-deep .login-card {
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: $spacing-small;
+    display: flex;
+    flex-direction: column;
+    padding: $spacing-large;
 
-      .p-card-content .card-content {
+    .login-title {
+      color: var(--primary-color);
+      text-align: center;
+      margin-bottom: $spacing-large;
+    }
+
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-large;
+
+      .form-field {
+        .p-float-label {
+          display: block;
+          margin-bottom: $spacing-small;
+        }
+
+        .helper-text {
+          display: block;
+          margin-top: $spacing-small;
+          color: var(--text-color-secondary);
+          font-size: 0.875rem;
+        }
+
+        .error-message {
+          display: block;
+          color: var(--red-500);
+          margin: $spacing-small 0;
+          font-weight: 500;
+
+          &.password-focus {
+            margin-top: 90px;
+          }
+        }
+      }
+
+      p-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .login-wrapper {
+    padding: 0;
+    background-color: transparent;
+
+    ::ng-deep .login-card {
+      width: 100%;
+      max-width: none;
+      box-shadow: none;
+      border-radius: none;
+      padding: 0;
+
+      .login-title {
+        margin-bottom: 0;
+      }
+
+      .login-form {
         display: flex;
         flex-direction: column;
-        gap: $spacing-large;
+        gap: $spacing-medium;
+
+        .form-field {
+          .error-message {
+            margin-top: $spacing-small;
+          }
+        }
+
+        p-divider {
+          display: none;
+        }
+
+        p-button {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-top: $spacing-large;
+
+          button {
+            width: 100%;
+          }
+        }
       }
-
-      .p-button {
-        margin-top: $spacing-medium;
-      }
-    }
-
-    label {
-      display: block;
-      margin-bottom: $spacing-small;
-      font-weight: bold;
-    }
-
-    .p-inputtext,
-    .p-password,
-    .p-button {
-      width: 100%;
     }
   }
 }
