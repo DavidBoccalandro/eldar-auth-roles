@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoadingService } from '@app/shared/services/loading.service';
 import { ModalService } from '@app/shared/services/modal.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
@@ -17,18 +18,22 @@ export class PostsEffects {
     private postsService: PostsService,
     private messageService: MessageService,
     private router: Router,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private loadingService: LoadingService
   ) {}
 
   loadPosts$ = createEffect(() =>
     this.actions$.pipe(
       ofType(PostsActions.loadPosts),
       switchMap(() => {
+        this.loadingService.setLoading(true, 'loadPosts');
         return this.postsService.getPosts().pipe(
           map((posts) => {
+            this.loadingService.setLoading(false, 'loadPosts');
             return PostsActions.loadPostsSuccess({ posts });
           }),
           catchError((error) => {
+            this.loadingService.setLoading(false, 'loadPosts');
             return of(PostsActions.loadPostsFailed({ error: error.message }));
           })
         );
