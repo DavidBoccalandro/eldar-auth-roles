@@ -1,4 +1,4 @@
-@import "../../../../styles/index";
+@import 'index';
 
 .login-wrapper {
   display: flex;
@@ -61,6 +61,10 @@
       }
     }
   }
+}
+
+::ng-deep .p-password-panel {
+  margin-top: $spacing-small !important;
 }
 
 @media screen and (max-width: 480px) {
