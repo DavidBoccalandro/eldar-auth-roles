@@ -1,32 +1,5 @@
-<form [formGroup]="postForm" (ngSubmit)="onSubmit()">
-  <div class="form-container">
-    <div class="form-field">
-      <label for="title">Título</label>
-      <input type="text" pInputText formControlName="title" />
-    </div>
-    <div class="form-field">
-      <label for="body">Cuerpo</label>
-      <textarea
-        [rows]="5"
-        [cols]="30"
-        pInputTextarea
-        [autoResize]="false"
-        formControlName="body"
-      ></textarea>
-    </div>
-    <div class="form-actions">
-      <p-button
-        label="Volver"
-        icon="pi pi-arrow-left"
-        (click)="goBack()"
-        styleClass="p-mr-2"
-      ></p-button>
-      <p-button
-        label="Crear Publicación"
-        type="submit"
-        [disabled]="postForm.invalid"
-        icon="pi pi-save"
-      ></p-button>
-    </div>
-  </div>
-</form>
+<app-post-form
+  [mode]="postModeEnum.Create"
+  (submitted)="createPost($event)"
+  (cancelled)="goBack()"
+></app-post-form>

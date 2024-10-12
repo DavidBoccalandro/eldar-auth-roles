@@ -13,9 +13,13 @@ export const PostsActions = createActionGroup({
     'Create Post Failed': props<{ error: string }>(),
 
     'Open Delete Modal': props<{ post: Post }>(),
-
     'Delete Post': props<{ postId: number }>(),
     'Delete Post Success': props<{ postId: number }>(),
     'Delete Post Failed': props<{ error: string }>(),
+
+    'Load Post For Edit': props<{ post: Post }>(),
+    'Edit Post': props<{ post: Post }>(),
+    'Edit Post Success': props<{ post: Post }>(),
+    'Edit Post Failed': props<{ error: string }>(),
   },
 });

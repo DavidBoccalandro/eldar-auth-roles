@@ -1,9 +1,11 @@
+import { Post } from '@app/shared/models/post.model';
 import { createReducer, on } from '@ngrx/store';
 import { PostsActions } from './actions/posts.actions';
 import { PostsState } from './posts.store.model';
 
 const initialState: PostsState = {
-  postsList: [],
+  postsList: [] as Post[],
+  currentPost: {} as Post,
 };
 
 export const postsReducer = createReducer(
@@ -22,5 +24,16 @@ export const postsReducer = createReducer(
   on(PostsActions.deletePostSuccess, (state, { postId }) => ({
     ...state,
     postsList: state.postsList.filter((post) => post.id !== postId),
+  })),
+
+  on(PostsActions.loadPostForEdit, (state, { post }) => ({
+    ...state,
+    currentPost: post,
+  })),
+
+  on(PostsActions.editPostSuccess, (state, { post }) => ({
+    ...state,
+    postsList: state.postsList.map((p) => (p.id === post.id ? post : p)),
+    currentPost: {} as Post,
   }))
 );

@@ -1,0 +1,8 @@
+<ng-container *ngIf="currentPost$ | async as post">
+  <app-post-form
+    [post]="post"
+    [mode]="postModeEnum.Edit"
+    (submitted)="editPost($event)"
+    (cancelled)="goBack()"
+  ></app-post-form>
+</ng-container>

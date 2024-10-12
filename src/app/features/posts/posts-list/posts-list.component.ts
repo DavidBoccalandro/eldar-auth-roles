@@ -53,7 +53,7 @@ export class PostsListComponent implements OnInit {
   }
 
   editPost(post: Post) {
-    console.log(post);
+    this.store.dispatch(PostsActions.loadPostForEdit({ post }));
   }
 
   deletePost(post: Post) {

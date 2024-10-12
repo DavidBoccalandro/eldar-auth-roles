@@ -22,4 +22,8 @@ export class PostsService {
   deletePost(postId: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/${postId}`);
   }
+
+  updatePost(postId: number, post: Post): Observable<Post> {
+    return this.http.put<Post>(`${this.baseUrl}/${postId}`, post);
+  }
 }

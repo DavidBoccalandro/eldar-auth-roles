@@ -4,6 +4,7 @@ import { AuthGuard } from './features/auth/guards/auth.guard';
 import { NonAuthGuard } from './features/auth/guards/non-auth.guard';
 import { LoginComponent } from './features/auth/login/login.component';
 import { CreatePostComponent } from './features/posts/create-post/create-post.component';
+import { EditPostComponent } from './features/posts/edit-post/edit-post.component';
 import { PostsListComponent } from './features/posts/posts-list/posts-list.component';
 
 export const routes: Routes = [
@@ -21,6 +22,11 @@ export const routes: Routes = [
   {
     path: 'posts/create',
     component: CreatePostComponent,
+    canActivate: [AuthGuard, AdminGuard],
+  },
+  {
+    path: 'posts/edit/:id',
+    component: EditPostComponent,
     canActivate: [AuthGuard, AdminGuard],
   },
   { path: '**', redirectTo: '/login' },

@@ -68,6 +68,49 @@ export class PostsEffects {
     { dispatch: false }
   );
 
+  loadPostForEdit$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(PostsActions.loadPostForEdit),
+        tap(({ post }) => {
+          this.router.navigate(['/posts/edit', post.id]);
+        })
+      ),
+    { dispatch: false }
+  );
+
+  editPost$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(PostsActions.editPost),
+      switchMap(({ post }) => {
+        return this.postsService.updatePost(post.id, post).pipe(
+          map((updatedPost) =>
+            PostsActions.editPostSuccess({ post: updatedPost })
+          ),
+          catchError((error) =>
+            of(PostsActions.editPostFailed({ error: error.message }))
+          )
+        );
+      })
+    )
+  );
+
+  editPostSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(PostsActions.editPostSuccess),
+        tap(() => {
+          this.router.navigate(['/posts']);
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Publicación editada con éxito',
+            detail: 'La publicación se ha editado correctamente.',
+          });
+        })
+      ),
+    { dispatch: false }
+  );
+
   openDeleteModal$ = createEffect(
     () =>
       this.actions$.pipe(
