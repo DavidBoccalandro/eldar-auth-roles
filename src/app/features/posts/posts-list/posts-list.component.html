@@ -3,17 +3,20 @@
     <app-spinner></app-spinner>
   </div>
 } @else {
+  <ng-container *ngIf="userRole$ | async as userRole">
   <div class="posts-container">
     <header class="posts-header">
       <h2>Publicaciones recientes</h2>
-      <div class="add-post-button" *ngIf="userRole$ | async as userRole">
-        <p-button
-          label="Agregar Publicación"
-          icon="pi pi-plus"
-          (click)="createPost()"
-          styleClass="p-button-success"
-        ></p-button>
-      </div>
+        @if(userRole === UserRoleEnum.Admin) {
+          <div class="add-post-button">
+            <p-button
+              label="Agregar Publicación"
+              icon="pi pi-plus"
+              (click)="createPost()"
+              styleClass="p-button-success"
+            ></p-button>
+          </div>
+        }
     </header>
     <div class="posts-grid" *ngIf="posts$ | async as posts">
       <p-card *ngFor="let post of posts">
@@ -22,7 +25,7 @@
             <div class="post-info">
               <h3>Usuario {{ post.userId }}</h3>
             </div>
-            <div class="post-actions">
+            <div class="post-actions" *ngIf="userRole === UserRoleEnum.Admin">
               <p-button
                 icon="pi pi-pencil"
                 (click)="editPost(post)"
@@ -52,4 +55,5 @@
       </p-card>
     </div>
   </div>
+  </ng-container>
 }
