@@ -157,4 +157,34 @@ export class PostsEffects {
       })
     )
   );
+
+  addFavoriteSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(PostsActions.addFavorite),
+        tap(({ postId }) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Agregado a favoritos',
+            detail: `El post con ID ${postId} ahora es uno de tus favoritos y se encuentra en la parte superior de la lista.`,
+          });
+        })
+      ),
+    { dispatch: false }
+  );
+
+  removeFavoriteSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(PostsActions.removeFavorite),
+        tap(({ postId }) => {
+          this.messageService.add({
+            severity: 'info',
+            summary: 'Eliminado de favoritos',
+            detail: `El post con ID ${postId} ya no es uno de tus favoritos y se encuentra en su posición original en la lista.`,
+          });
+        })
+      ),
+    { dispatch: false }
+  );
 }

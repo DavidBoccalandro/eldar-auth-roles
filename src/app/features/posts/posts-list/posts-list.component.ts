@@ -79,4 +79,12 @@ export class PostsListComponent implements OnInit, OnDestroy {
   createPost() {
     this.router.navigate(['/posts/create']);
   }
+
+  toggleFavorite(post: Post) {
+    if (post.isFavorite) {
+      this.store.dispatch(PostsActions.removeFavorite({ postId: post.id }));
+    } else {
+      this.store.dispatch(PostsActions.addFavorite({ postId: post.id }));
+    }
+  }
 }

@@ -21,5 +21,8 @@ export const PostsActions = createActionGroup({
     'Edit Post': props<{ post: Post }>(),
     'Edit Post Success': props<{ post: Post }>(),
     'Edit Post Failed': props<{ error: string }>(),
+
+    'Add Favorite': props<{ postId: number }>(),
+    'Remove Favorite': props<{ postId: number }>(),
   },
 });

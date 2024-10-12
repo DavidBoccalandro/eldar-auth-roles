@@ -23,7 +23,7 @@ export const postsReducer = createReducer(
 
   on(PostsActions.deletePostSuccess, (state, { postId }) => ({
     ...state,
-    postsList: state.postsList.filter((post) => post.id !== postId),
+    postsList: state.postsList.filter((p) => p.id !== postId),
   })),
 
   on(PostsActions.loadPostForEdit, (state, { post }) => ({
@@ -35,5 +35,16 @@ export const postsReducer = createReducer(
     ...state,
     postsList: state.postsList.map((p) => (p.id === post.id ? post : p)),
     currentPost: {} as Post,
-  }))
+  })),
+
+  on(
+    PostsActions.addFavorite,
+    PostsActions.removeFavorite,
+    (state, { postId }) => ({
+      ...state,
+      postsList: state.postsList.map((p) =>
+        p.id === postId ? { ...p, isFavorite: !p.isFavorite } : { ...p }
+      ),
+    })
+  )
 );

@@ -42,7 +42,11 @@
         </div>
         <ng-template pTemplate="footer">
           <div class="post-footer">
-            <p-button icon="pi pi-heart" styleClass="p-button-text"></p-button>
+            <p-button
+              [icon]="post.isFavorite ? 'pi pi-star-fill' : 'pi pi-star'"
+              styleClass="p-button-text"
+              (click)="toggleFavorite(post)">
+            </p-button>
           </div>
         </ng-template>
       </p-card>
