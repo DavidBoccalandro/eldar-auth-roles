@@ -1,17 +1,73 @@
 @import "../../../../styles/index";
 
-.form-container {
+:host {
   display: flex;
-  flex-direction: column;
-  padding: $spacing-large;
-}
-
-.form-field {
-  margin-bottom: $spacing-large;
-}
-
-.form-actions {
-  display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: flex-start;
+  height: 100%;
+
+  form {
+    width: 100%;
+  }
+}
+
+.form-container {
+  padding: $spacing-medium;
+  background-color: $light-color;
+  border-radius: $spacing-small;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 0 auto;
+
+  .form-header {
+    margin-bottom: $spacing-large;
+    text-align: center;
+
+    h2 {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: $primary-color;
+      margin: 0;
+    }
+  }
+
+  .form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-large;
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-small;
+
+      label {
+        font-weight: 600;
+        color: $dark-color;
+      }
+
+      input,
+      textarea {
+        padding: $spacing-small;
+      }
+
+      textarea {
+        resize: none;
+      }
+    }
+  }
+
+  .form-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: $spacing-medium;
+    margin-top: $spacing-large;
+  }
+}
+
+.character-counter {
+  font-size: 0.9rem;
+  color: $secondary-color;
+  text-align: right;
+  margin-top: 5px;
 }

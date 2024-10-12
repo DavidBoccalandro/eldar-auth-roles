@@ -18,10 +18,12 @@ import { selectCurrentPost } from '../store/posts.selectors';
 export class EditPostComponent {
   currentPost$ = this.store.select(selectCurrentPost);
   postModeEnum = PostMode;
+  isLoading: boolean = false;
 
   constructor(private store: Store, private router: Router) {}
 
   editPost(post: Post) {
+    this.isLoading = true;
     this.store.dispatch(PostsActions.editPost({ post }));
   }
 

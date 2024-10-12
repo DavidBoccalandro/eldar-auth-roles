@@ -1,34 +1,74 @@
-<form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+<form
+  [formGroup]="postForm"
+  (ngSubmit)="onSubmit()"
+  aria-labelledby="form-title"
+>
   <div class="form-container">
-    <div class="form-field">
-      <label for="title">Título</label>
-      <input type="text" pInputText formControlName="title" />
+    <div class="form-header">
+      <h2 id="form-title">
+        {{
+          mode === postModeEnum.Create
+            ? "Crear Publicación"
+            : "Editar Publicación"
+        }}
+      </h2>
     </div>
-    <div class="form-field">
-      <label for="body">Cuerpo</label>
-      <textarea
-        [rows]="5"
-        [cols]="30"
-        pInputTextarea
-        [autoResize]="false"
-        formControlName="body"
-      ></textarea>
+    <div class="form-fields">
+      <div class="form-field">
+        <label for="title" aria-required="true">Título</label>
+        <input
+          type="text"
+          pInputText
+          formControlName="title"
+          autocomplete="off"
+          aria-describedby="title-help"
+          required
+        />
+        <small id="title-help" class="helper-text">
+          Ingrese el título de la publicación.
+          @if(postForm.get('title')?.hasError('maxlength')) {
+            <span class="error-message" [style]="{color: 'red'}">
+              (Máximo 100 caracteres)
+            </span>
+          }
+        </small>
+      </div>
+      <div class="form-field">
+        <label for="body" aria-required="true">Descripción</label>
+        <textarea
+          rows="5"
+          formControlName="body"
+          pInputTextarea
+          aria-describedby="body-help"
+          required
+        ></textarea>
+        <small id="body-help" class="helper-text">
+          Ingrese el contenido de la publicación.
+          @if(postForm.get('body')?.hasError('maxlength')) {
+            <span class="error-message" [style]="{color: 'red'}">
+              (Máximo 500 caracteres)
+            </span>
+          }
+        </small>
+        <small class="character-counter" [style]="{marginTop: '-24px'}">
+          {{ postForm.get('body')?.value.length }} / 500
+        </small>
+      </div>
     </div>
     <div class="form-actions">
       <p-button
         label="Volver"
         icon="pi pi-arrow-left"
         (click)="onCancel()"
+        class="secondary-button"
+        severity="secondary"
       ></p-button>
       <p-button
-        label="{{
-          mode === postModeEnum.Create
-            ? 'Crear Publicación'
-            : 'Editar Publicación'
-        }}"
+        label="Guardar"
         type="submit"
-        [disabled]="postForm.invalid"
+        [disabled]="postForm.invalid || isLoading"
         icon="pi pi-save"
+        [loading]="isLoading"
       ></p-button>
     </div>
   </div>

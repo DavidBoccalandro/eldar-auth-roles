@@ -15,10 +15,12 @@ import { PostsActions } from '../store/actions/posts.actions';
 })
 export class CreatePostComponent {
   postModeEnum = PostMode;
+  isLoading: boolean = false;
 
   constructor(private store: Store, private router: Router) {}
 
   createPost(post: Post) {
+    this.isLoading = true
     this.store.dispatch(PostsActions.createPost({ post }));
   }
 

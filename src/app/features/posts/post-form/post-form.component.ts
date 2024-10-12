@@ -26,6 +26,7 @@ import { PostMode } from '../enums/post-mode.enum';
 export class PostFormComponent {
   @Input() post!: Post;
   @Input() mode!: PostMode;
+  @Input() isLoading: boolean = false;
 
   @Output() submitted = new EventEmitter<Post>();
   @Output() cancelled = new EventEmitter<void>();
@@ -35,8 +36,8 @@ export class PostFormComponent {
 
   constructor(private fb: FormBuilder) {
     this.postForm = this.fb.group({
-      title: ['', [Validators.required]],
-      body: ['', [Validators.required]],
+      title: ['', [Validators.required, Validators.maxLength(100)]],
+      body: ['', [Validators.required, Validators.maxLength(500)]],
     });
   }
 

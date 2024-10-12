@@ -2,6 +2,7 @@
   <app-post-form
     [post]="post"
     [mode]="postModeEnum.Edit"
+    [isLoading]="isLoading"
     (submitted)="editPost($event)"
     (cancelled)="goBack()"
   ></app-post-form>
