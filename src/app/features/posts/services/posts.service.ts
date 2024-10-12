@@ -18,4 +18,8 @@ export class PostsService {
   createPost(post: Post): Observable<Post> {
     return this.http.post<Post>(this.baseUrl, post);
   }
+
+  deletePost(postId: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${postId}`);
+  }
 }

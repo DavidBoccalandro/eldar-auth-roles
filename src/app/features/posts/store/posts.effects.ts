@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalService } from '@app/shared/services/modal.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
 import { MessageService } from 'primeng/api';
 import { of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
@@ -12,6 +13,7 @@ import { PostsActions } from './actions/posts.actions';
 export class PostsEffects {
   constructor(
     private actions$: Actions,
+    private store: Store,
     private postsService: PostsService,
     private messageService: MessageService,
     private router: Router,
@@ -66,7 +68,7 @@ export class PostsEffects {
     { dispatch: false }
   );
 
-  openDeleteConfirmationModal$ = createEffect(
+  openDeleteModal$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(PostsActions.openDeleteModal),
@@ -74,12 +76,37 @@ export class PostsEffects {
           this.modalService.openModal(
             'Confirmar eliminación',
             `¿Estás seguro de que deseas eliminar el post: ${post.title}?`,
-            () => {
-              console.log('Post eliminado:', post);
-            }
+            () =>
+              this.store.dispatch(PostsActions.deletePost({ postId: post.id }))
           );
         })
       ),
     { dispatch: false }
+  );
+
+  deletePost$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(PostsActions.deletePost),
+      switchMap(({ postId }) => {
+        return this.postsService.deletePost(postId).pipe(
+          map(() => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Post eliminado',
+              detail: 'El post se ha eliminado correctamente.',
+            });
+            return PostsActions.deletePostSuccess({ postId });
+          }),
+          catchError((error) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'No se pudo eliminar el post.',
+            });
+            return of(PostsActions.deletePostFailed({ error: error.message }));
+          })
+        );
+      })
+    )
   );
 }

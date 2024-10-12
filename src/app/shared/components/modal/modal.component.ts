@@ -17,6 +17,7 @@ export class ModalComponent implements OnInit {
   @Output() save = new EventEmitter<void>();
 
   content: any;
+  action!: () => void;
 
   constructor(private modalService: ModalService) {}
 
@@ -25,6 +26,7 @@ export class ModalComponent implements OnInit {
       if (modalData) {
         this.title = modalData.title;
         this.content = modalData.content;
+        this.action = modalData.action;
         this.isVisible = true;
       } else {
         this.isVisible = false;
@@ -39,6 +41,9 @@ export class ModalComponent implements OnInit {
 
   saveModal() {
     this.save.emit();
+    if (this.action) {
+      this.action();
+    }
     this.closeModal();
   }
 }
